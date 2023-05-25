@@ -22,11 +22,8 @@ const options = {
     btnStart.disabled = false;
 
     startTimer = selectedDates[0];
-    console.log(new Date());
     countDown = startTimer - Date.now();
-    console.log(countDown);
 
-    console.log(startTimer);
 
     btnStart.addEventListener('click', () => {
       timer.start();
