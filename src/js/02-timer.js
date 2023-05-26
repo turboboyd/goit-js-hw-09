@@ -31,6 +31,7 @@ btnStart.addEventListener('click', () => {
 
 flatpickr(myInput, options);
 
+
 const timer = {
   timerId: null,
   isActive: false,
