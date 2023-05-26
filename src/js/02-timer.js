@@ -2,12 +2,12 @@ import flatpickr from 'flatpickr';
 import 'flatpickr/dist/flatpickr.min.css';
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
 
-const myInput = document.querySelector('input#datetime-picker');
+const myInput = document.querySelector('input[type="text"]');
 const btnStart = document.querySelector('button[data-start]');
 
 btnStart.disabled = true;
 let countDown = 0;
-let startTimer = null;
+// let startTimer = null;
 
 const options = {
   enableTime: true,
@@ -16,47 +16,47 @@ const options = {
   minuteIncrement: 1,
   onClose(selectedDates) {
     if (selectedDates[0] < Date.now()) {
-      btnStart.disabled = true;
       return Notify.failure('Please choose a date in the future');
-    } 
-    btnStart.disabled = false;
-
-    startTimer = selectedDates[0];
-    countDown = startTimer - Date.now();
-
-
-    btnStart.addEventListener('click', () => {
-      timer.start();
-    });
+    } else {
+      btnStart.disabled = false;
+      startTimer = selectedDates[0];
+      countDown = startTimer - Date.now();
+    }
   },
 };
 
+btnStart.addEventListener('click', () => {
+  timer.start();
+});
+
+flatpickr(myInput, options);
 
 const timer = {
   timerId: null,
-  isActiveTimer: false,
+  isActive: false,
   start() {
-    if (this.isActiveTimer) {
-      console.log('sf')
+    if (this.isActive) {
       return;
     }
-    this.isActiveTimer = true;
+
+    this.isActive = true;
+
+    document.querySelector('#datetime-picker').disabled = true;
     this.timerId = setInterval(() => {
-      const currenTime = Date.now();
-      countDown = startTimer - currenTime;
+      const currentTime = Date.now();
+      countDown = startTimer - currentTime;
       const { days, hours, minutes, seconds } = convertMs(countDown);
       displayCountDown(days, hours, minutes, seconds);
-      console.log(convertMs(countDown));
+      btnStart.disabled = true;
+      document.querySelector('#datetime-picker').disabled = true;
       if (countDown <= 0) {
-        btnStart.disabled = true;
-        displayCountDown(0,0,0,0);
+        myInput.disabled = false;
+        displayCountDown(0, 0, 0, 0);
         clearInterval(this.timerId);
       }
     }, 1000);
   },
 };
-
-flatpickr(myInput, options);
 
 function convertMs(ms) {
   // Number of milliseconds per unit of time
@@ -91,4 +91,3 @@ function displayCountDown(days, hours, minutes, seconds) {
   document.querySelector('span[data-seconds]').textContent =
     addLeadingZero(seconds);
 }
-

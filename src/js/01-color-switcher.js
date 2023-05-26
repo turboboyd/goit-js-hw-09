@@ -9,26 +9,18 @@ const btnStop = document.querySelector(`button[data-stop]`);
 const bodyEl = document.querySelector('body');
 
 let timerId = null;
-let isActivBtn = false;
 
+btnStop.disabled = true;
 btnStart.addEventListener('click', () => {
-  if (isActivBtn) {
-    return;
-  }
   timerId = setInterval(() => {
-    isActivBtn = true;
-      console.log('fskfk');
     btnStart.disabled = true;
     btnStop.disabled = false;
-      
     bodyEl.style.backgroundColor = getRandomHexColor();
   }, 1000);
 });
 
 btnStop.addEventListener('click', () => {
   clearInterval(timerId);
-    isActivBtn = false;
-    btnStart.disabled = false;
-    btnStop.disabled = true;
-  console.log('safasf');
+  btnStart.disabled = false;
+  btnStop.disabled = true;
 });
