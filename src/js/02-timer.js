@@ -7,7 +7,7 @@ const btnStart = document.querySelector('button[data-start]');
 
 btnStart.disabled = true;
 let countDown = 0;
-// let startTimer = null;
+let startTimer = null;
 
 const options = {
   enableTime: true,
