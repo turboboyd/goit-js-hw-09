@@ -31,7 +31,6 @@ btnStart.addEventListener('click', () => {
 
 flatpickr(myInput, options);
 
-
 const timer = {
   timerId: null,
   isActive: false,
@@ -92,3 +91,4 @@ function displayCountDown(days, hours, minutes, seconds) {
   document.querySelector('span[data-seconds]').textContent =
     addLeadingZero(seconds);
 }
+
