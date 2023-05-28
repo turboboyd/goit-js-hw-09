@@ -41,16 +41,14 @@ const timer = {
 
     this.isActive = true;
 
-    document.querySelector('#datetime-picker').disabled = true;
     this.timerId = setInterval(() => {
       const currentTime = Date.now();
       countDown = startTimer - currentTime;
       const { days, hours, minutes, seconds } = convertMs(countDown);
       displayCountDown(days, hours, minutes, seconds);
       btnStart.disabled = true;
-      document.querySelector('#datetime-picker').disabled = true;
+      myInput.disabled = true;
       if (countDown <= 0) {
-        myInput.disabled = false;
         displayCountDown(0, 0, 0, 0);
         clearInterval(this.timerId);
       }
@@ -91,4 +89,3 @@ function displayCountDown(days, hours, minutes, seconds) {
   document.querySelector('span[data-seconds]').textContent =
     addLeadingZero(seconds);
 }
-
