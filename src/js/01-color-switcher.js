@@ -11,10 +11,11 @@ const bodyEl = document.querySelector('body');
 let timerId = null;
 
 btnStop.disabled = true;
+
 btnStart.addEventListener('click', () => {
+  btnStart.disabled = true;
+  btnStop.disabled = false;
   timerId = setInterval(() => {
-    btnStart.disabled = true;
-    btnStop.disabled = false;
     bodyEl.style.backgroundColor = getRandomHexColor();
   }, 1000);
 });
